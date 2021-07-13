@@ -1,0 +1,103 @@
+title: "Circular Wind Farm, Randomly Positioned Turbines"
+description: "9 turbines, 10-diameter spacing, 903.0-meter boundary radius"
+definitions:
+  position:
+    description: |-
+      x and y-coordinates for the turbines
+      -
+        - x0
+        - y0
+      -
+        - x1
+        - y1
+      -
+        - x2
+        - y2
+        .
+        .
+        .
+    units: "m"
+    items:
+      -
+        - -704.0728955374781
+        - 449.03980505629295
+      -
+        - -52.796175984978994
+        - -820.5872997727466
+      -
+        - -712.5847259770177
+        - -517.7318635127649
+      -
+        - -259.2988668794251
+        - 600.415811503172
+      -
+        - 508.43129592882315
+        - 65.80178374645418
+      -
+        - -31.392181269379712
+        - -260.20060526798477
+      -
+        - -571.0267519109929
+        - -119.1203731963701
+      -
+        - 618.2002372415396
+        - -542.4818596053816
+      -
+        - 114.61049502012607
+        - 882.9611276874181
+  base_height:
+    description: |-
+      z-coordinates for the wind turbine base heights, determined by the terrain of the site
+      - z0
+      - z1
+      - z2
+       .
+       .
+       .
+    units: "m"
+    items:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+  turbine_type:
+    id:
+      description: |-
+        Turbine type IDs for each turbine in the farm. Each ID correspondes to an index of the reference item array.
+        - ID_0
+        - ID_1
+        - ID_2
+         .
+         .
+         .
+      items:
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+    ref:
+      description: "Reference file paths for each turbine type in the farm."
+      items:
+        - "VestasV80_2MW.yaml"
+  plant_energy:
+    description: "energy production data"
+    properties:
+      annual_energy_production:
+        description: "binned and total (default) annual energy production (AEP) for a wind plant given a layout and binned wind rose"
+        units: "W"
+        binned: []
+        default: .NaN
+      cost_of_energy:
+        description: "estimated cost of energy (COE) for the farm"
+        units: "$/W"
+        default: .NaN
