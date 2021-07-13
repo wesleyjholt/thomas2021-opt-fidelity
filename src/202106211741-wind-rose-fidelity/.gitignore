@@ -1,0 +1,5 @@
+*.png
+*.pdf
+*.out
+results/.gitignore
+results/log/*
