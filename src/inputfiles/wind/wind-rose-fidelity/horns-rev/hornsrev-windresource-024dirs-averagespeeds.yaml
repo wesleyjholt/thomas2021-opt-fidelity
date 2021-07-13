@@ -1,0 +1,157 @@
+title: Horns Rev 1 Wind Rose, 24 wind directions, 1 wind speeds
+description: |-
+  Wind resource conditions, using direction and speed distribution from the paper by Ju Feng and Wen Zhong Shen: 
+  Modelling Wind for Wind Farm Layout Optimization Using Joint Distribution of Wind Speed and Wind Direction 
+  https://backend.orbit.dtu.dk/ws/portalfiles/portal/110639016/Modelling_Wind_for_Wind_Farm_Layout.pdf
+definitions:
+  wind_inflow:
+    properties:
+      direction:
+        description: The wind direction frequencies. Binned in degrees, with North as the 0, going clockwise.
+        units: deg
+        bins:
+          - 0.0
+          - 15.0
+          - 30.0
+          - 45.0
+          - 60.0
+          - 75.0
+          - 90.0
+          - 105.0
+          - 120.0
+          - 135.0
+          - 150.0
+          - 165.0
+          - 180.0
+          - 195.0
+          - 210.0
+          - 225.0
+          - 240.0
+          - 255.0
+          - 270.0
+          - 285.0
+          - 300.0
+          - 315.0
+          - 330.0
+          - 345.0
+        frequency:
+          - 0.02407404272305626
+          - 0.021820984335011766
+          - 0.02027813557170299
+          - 0.018883978836587673
+          - 0.017930666675471368
+          - 0.020584680856889397
+          - 0.026321619325831224
+          - 0.03618560028207928
+          - 0.045550885816239235
+          - 0.04016236111365907
+          - 0.03481246426964775
+          - 0.03991135797291803
+          - 0.0458006165498809
+          - 0.052664933544669876
+          - 0.05913623772634568
+          - 0.06218786293360328
+          - 0.061983168089860624
+          - 0.059360698644700366
+          - 0.05663893038992905
+          - 0.05750352185505304
+          - 0.058436991672149025
+          - 0.05505689775391716
+          - 0.04839781617975419
+          - 0.036315546881042805
+        minimum: 0.0
+        maximum: 360.0
+      speed:
+        description: The wind speed frequency samples for each binned direction and wind speed.
+        units: m/s
+        bins: []
+        frequency: []
+        average:
+          - 7.869614486705385
+          - 7.979188514101741
+          - 8.20307125493639
+          - 7.597424763645512
+          - 7.290650824636641
+          - 7.90809662929722
+          - 8.659704077186309
+          - 9.538588496282712
+          - 10.335530710045319
+          - 10.143800998603895
+          - 9.76627181291018
+          - 9.976558558923559
+          - 10.181081684942615
+          - 10.407251790434401
+          - 10.495075835881451
+          - 10.336234367146046
+          - 10.12890928383227
+          - 9.945116291168238
+          - 9.767758430881347
+          - 9.831770672594663
+          - 9.968776285671753
+          - 9.81848967408101
+          - 9.481965886880513
+          - 8.697563638324734
+        minimum: .NaN
+        maximum: .NaN
+      measurement_height:
+        description: Measurement height
+        units: m
+        default:
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+      air_density:
+        description: Air density
+        units: kg/m^3
+        default: 1.225
+      turbulence_intensity:
+        description: Turbulence intensity
+        default:
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+      shear_exponent:
+        description: Shear exponent
+        default: 0.31

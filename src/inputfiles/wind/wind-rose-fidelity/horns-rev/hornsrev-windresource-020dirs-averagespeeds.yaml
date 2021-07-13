@@ -1,0 +1,137 @@
+title: Horns Rev 1 Wind Rose, 20 wind directions, 1 wind speeds
+description: |-
+  Wind resource conditions, using direction and speed distribution from the paper by Ju Feng and Wen Zhong Shen: 
+  Modelling Wind for Wind Farm Layout Optimization Using Joint Distribution of Wind Speed and Wind Direction 
+  https://backend.orbit.dtu.dk/ws/portalfiles/portal/110639016/Modelling_Wind_for_Wind_Farm_Layout.pdf
+definitions:
+  wind_inflow:
+    properties:
+      direction:
+        description: The wind direction frequencies. Binned in degrees, with North as the 0, going clockwise.
+        units: deg
+        bins:
+          - 0.0
+          - 18.0
+          - 36.0
+          - 54.0
+          - 72.0
+          - 90.0
+          - 108.0
+          - 126.0
+          - 144.0
+          - 162.0
+          - 180.0
+          - 198.0
+          - 216.0
+          - 234.0
+          - 252.0
+          - 270.0
+          - 288.0
+          - 306.0
+          - 324.0
+          - 342.0
+        frequency:
+          - 0.02890475437818589
+          - 0.025787945841770733
+          - 0.023658364846329126
+          - 0.021878683251782098
+          - 0.023591208841610443
+          - 0.03160333103175096
+          - 0.04626076325610376
+          - 0.05441112844433731
+          - 0.042048296486719934
+          - 0.0466198107548247
+          - 0.05499099536264826
+          - 0.06491377571256937
+          - 0.07312630310484637
+          - 0.07479922483896027
+          - 0.07209111867390264
+          - 0.06800413166983983
+          - 0.06949509190612574
+          - 0.06916579451399968
+          - 0.06162619789111472
+          - 0.04702307919257823
+        minimum: 0.0
+        maximum: 360.0
+      speed:
+        description: The wind speed frequency samples for each binned direction and wind speed.
+        units: m/s
+        bins: []
+        frequency: []
+        average:
+          - 7.869614486705385
+          - 8.053372418447623
+          - 8.047479207365765
+          - 7.254485625957885
+          - 7.767402951361171
+          - 8.659704077186309
+          - 9.72165254136636
+          - 10.409542504142172
+          - 9.812008755975606
+          - 9.932930473765001
+          - 10.181081684942615
+          - 10.44635441996696
+          - 10.446585053646729
+          - 10.208228043218181
+          - 9.981813460414227
+          - 9.767758430881347
+          - 9.872019310939274
+          - 9.938378190939385
+          - 9.63154426982929
+          - 8.894534459605437
+        minimum: .NaN
+        maximum: .NaN
+      measurement_height:
+        description: Measurement height
+        units: m
+        default:
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+          - 70.0
+      air_density:
+        description: Air density
+        units: kg/m^3
+        default: 1.225
+      turbulence_intensity:
+        description: Turbulence intensity
+        default:
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+          - 0.108
+      shear_exponent:
+        description: Shear exponent
+        default: 0.31
