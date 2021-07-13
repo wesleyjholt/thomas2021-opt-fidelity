@@ -1,0 +1,19 @@
+title: Flow models
+description: Describes the flow models used for analysis (see FLOWFarm documentation for all options).
+definitions:
+  wake_deficit:
+    description: Describes the deficit in wind velocity within a wind turbine wake
+    model: GaussYawVariableSpread
+    parameters: default
+  wake_deflection:
+    description: Describes the deflection of a wind turbine wake as it moves downstream
+    model: GaussYawVariableSpreadDeflection
+    parameters: default
+  wake_combination:
+    description: Describes how the wind velocity deficits combine when multiple wakes overlap and mix together
+    model: LinearLocalVelocitySuperposition
+    parameters: default
+  local_ti:
+    description: Describes how turbulence intensity is calculated
+    model: LocalTIModelMaxTI
+    parameters: default
