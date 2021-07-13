@@ -3,7 +3,7 @@ using DelimitedFiles
 using FLOWMath
 using Distributions
 
-function create_wind_resource_files()
+function generate_all_wind_resource_files()
     # create Horns Rev wind resource files
     ndirs_horns_rev = [8,10,11,12,13,15,16,18,20,24,30,36,45,60,90,180,360]
     nspeeds_horns_rev = [1,20]
