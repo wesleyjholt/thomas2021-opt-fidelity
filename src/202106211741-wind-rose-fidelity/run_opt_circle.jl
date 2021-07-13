@@ -15,7 +15,9 @@ verbose = true
 ### parse input arguments ###
 
 ntasks = parse(Int, ENV["SLURM_NTASKS"])
-addprocs(SlurmManager(ntasks - 1))
+if ntasks>1
+    addprocs(SlurmManager(ntasks - 1))
+end
 
 if length(ARGS)<1
     # defaults
