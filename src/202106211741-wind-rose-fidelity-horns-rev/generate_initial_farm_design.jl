@@ -3,9 +3,9 @@ import YAML
 
 function generate_all_initial_farm_design_files()
     for i = 1:100
+        generate_initial_farm_design_circle(i,9,5,80.0)
+        generate_initial_farm_design_circle(i,9,7,80.0)
         generate_initial_farm_design_circle(i,9,10,80.0)
-    end
-    for i = 1:100
         generate_initial_farm_design_hornsrev(i)
     end
 end
@@ -28,7 +28,7 @@ function generate_initial_farm_design_circle(layout_number, nturbines, diameter_
     # generate a random farm layout with uniform turbine type and height
     boundary_radius = sqrt(((sqrt(nturbines)-1)*diameter_spacing*rotor_diameter)^2/pi)
     boundary = ff.CircleBoundary([0.0,0.0], boundary_radius)
-    min_spacing = 5.0*rotor_diameter
+    min_spacing = 4.0*rotor_diameter
     param = get_farm_definition_parameters(nturbines, boundary, min_spacing)
     
     # save to yaml file
@@ -64,7 +64,7 @@ function generate_initial_farm_design_polygon(layout_number, nturbines, boundary
 
     # generate random farm layout with uniform type and height
     boundary = ff.PolygonBoundary(boundary_vertices)
-    min_spacing = 5.0*rotor_diameter
+    min_spacing = 4.0*rotor_diameter
     param = get_farm_definition_parameters(nturbines, boundary, min_spacing)
 
     # save to yaml file
@@ -83,19 +83,3 @@ function get_farm_definition_parameters(nturbines, boundary, min_spacing)
 
     return turbine_xy, turbine_z, turbine_definition_ids, turbine_definition_references
 end
-
-# import YAML
-# import PyPlot; const plt=PyPlot
-# import FLOWFarm; const ff=FLOWFarm
-# farm_design = YAML.load(open("farms/random-layouts/horns-rev/initial-design-003.yaml"))
-# turbine_xy = farm_design["definitions"]["position"]["items"]
-# turbine_x = [turbine_xy[i][1] for i=1:length(turbine_xy)]
-# turbine_y = [turbine_xy[i][2] for i=1:length(turbine_xy)]
-# fig = plt.figure()
-# ax = fig.add_subplot()
-# for i = 1:length(turbine_x)
-#     plt.gcf().gca().add_artist(plt.plt.Circle((turbine_x[i],turbine_y[i]), 80.0/2.0, fill=false,color="C1", linestyle="--")) 
-# end
-# plt.axis("square")
-# plt.xlim(0,5000)
-# plt.ylim(0,5000)
