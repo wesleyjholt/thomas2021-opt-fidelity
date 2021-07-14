@@ -34,25 +34,25 @@ diameter_spacing = parse(Int,ARGS[6])
 ### set input file path/names ###
 
 # farm name
-@everywhere farm_name = "circle-$($nturbines)turb-$($diameter_spacing)diam"
+farm_name = "circle-$($nturbines)turb-$($diameter_spacing)diam"
 # farm definition
-@everywhere path_to_farm_definition_directory = "../inputfiles/farms/random-layouts/$($farm_name)/"
-@everywhere farm_definition_filename = "initial-design-$($layout_number).yaml"
+path_to_farm_definition_directory = "../inputfiles/farms/random-layouts/$($farm_name)/"
+farm_definition_filename = "initial-design-$($layout_number).yaml"
 # wind resource
-@everywhere path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
+path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
 if parse(Int64,nspeeds)==1
-    @everywhere wind_resource_filename = "hornsrev-windresource-$($ndirs)dirs-averagespeeds.yaml"
+    wind_resource_filename = "hornsrev-windresource-$($ndirs)dirs-averagespeeds.yaml"
 else
-    @everywhere wind_resource_filename = "hornsrev-windresource-$($ndirs)dirs-$($nspeeds)speeds.yaml"
+    wind_resource_filename = "hornsrev-windresource-$($ndirs)dirs-$($nspeeds)speeds.yaml"
 end
 # flow models
-@everywhere path_to_flow_models_directory = "../inputfiles/model-sets/flow-models/"
-@everywhere flow_models_filename = "$($wake_model)-NoLocalTI.yaml"
+path_to_flow_models_directory = "../inputfiles/model-sets/flow-models/"
+flow_models_filename = "$($wake_model)-NoLocalTI.yaml"
 
 ### import problem setup file ###
 
-@everywhere include("problem_setup_circle.jl")
-
+include("problem_setup_circle.jl")
+@everywhere import FLOWFarm; const ff=FLOWFarm
 
 ##########################################################
 # RUN OPTIMIZATION
