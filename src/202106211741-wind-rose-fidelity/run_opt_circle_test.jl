@@ -76,6 +76,9 @@ if verbose
     println("Time for one evaluation of objective, constraints, and gradients: ", round(t2-t1,digits=3))
 end
 
+function make_func(); @everywhere function print_hello_world(); println("hello, world"); end; return print_hello_world; end
+print_hello_world_func = make_func()
+
 # separate initial design variable values into x and y
 turbine_x = copy(x0[1:nturbines])
 turbine_y = copy(x0[nturbines+1:end])
