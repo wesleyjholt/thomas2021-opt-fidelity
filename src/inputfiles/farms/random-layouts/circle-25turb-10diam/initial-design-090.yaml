@@ -1,0 +1,183 @@
+title: "Circular Wind Farm, Randomly Positioned Turbines"
+description: "25 turbines, 10-diameter spacing, 1805.0-meter boundary radius"
+definitions:
+  position:
+    description: |-
+      x and y-coordinates for the turbines
+      -
+        - x0
+        - y0
+      -
+        - x1
+        - y1
+      -
+        - x2
+        - y2
+        .
+        .
+        .
+    units: "m"
+    items:
+      -
+        - 348.53521037784276
+        - 276.9884723253158
+      -
+        - -1648.371732179077
+        - -14.32632115770477
+      -
+        - -479.0829390032321
+        - -459.27396720983694
+      -
+        - -1207.189556996026
+        - 244.96830239461957
+      -
+        - -12.33007023718355
+        - 1617.2805604245784
+      -
+        - -1120.331911119129
+        - -1355.2139557450332
+      -
+        - -296.466604169032
+        - -1662.0294269344743
+      -
+        - 913.0656101244755
+        - 1479.657605158015
+      -
+        - 998.3596898280969
+        - 484.6643521533598
+      -
+        - 28.95609460671958
+        - -1184.025680614514
+      -
+        - -523.4788732261524
+        - 1354.0848745716594
+      -
+        - -354.2104630006499
+        - 338.18578653886146
+      -
+        - 1563.9995391638763
+        - -610.5895546055588
+      -
+        - 399.481846857114
+        - -1044.798353670141
+      -
+        - 908.1984477709326
+        - 957.7621116042778
+      -
+        - -684.1011336168684
+        - 996.3510580056421
+      -
+        - 982.5084146962031
+        - -907.8929342810764
+      -
+        - -1462.3592146699082
+        - -914.5905138500204
+      -
+        - 991.8491981757011
+        - -360.52530521363224
+      -
+        - 720.1151664278813
+        - -689.1346196149543
+      -
+        - 770.5685965004634
+        - -1223.073144033959
+      -
+        - 1541.1132613152615
+        - -40.945713520398265
+      -
+        - -1109.1906685390381
+        - -592.4053685314001
+      -
+        - 208.93205738577026
+        - -1540.7982593066815
+      -
+        - 647.8416086889882
+        - -196.1184127035957
+  base_height:
+    description: |-
+      z-coordinates for the wind turbine base heights, determined by the terrain of the site
+      - z0
+      - z1
+      - z2
+       .
+       .
+       .
+    units: "m"
+    items:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+  turbine_type:
+    id:
+      description: |-
+        Turbine type IDs for each turbine in the farm. Each ID correspondes to an index of the reference item array.
+        - ID_0
+        - ID_1
+        - ID_2
+         .
+         .
+         .
+      items:
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+    ref:
+      description: "Reference file paths for each turbine type in the farm."
+      items:
+        - "VestasV80_2MW.yaml"
+  plant_energy:
+    description: "energy production data"
+    properties:
+      annual_energy_production:
+        description: "binned and total (default) annual energy production (AEP) for a wind plant given a layout and binned wind rose"
+        units: "W"
+        binned: []
+        default: .NaN
+      cost_of_energy:
+        description: "estimated cost of energy (COE) for the farm"
+        units: "$/W"
+        default: .NaN

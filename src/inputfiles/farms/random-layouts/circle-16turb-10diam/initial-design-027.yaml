@@ -1,0 +1,138 @@
+title: "Circular Wind Farm, Randomly Positioned Turbines"
+description: "16 turbines, 10-diameter spacing, 1354.0-meter boundary radius"
+definitions:
+  position:
+    description: |-
+      x and y-coordinates for the turbines
+      -
+        - x0
+        - y0
+      -
+        - x1
+        - y1
+      -
+        - x2
+        - y2
+        .
+        .
+        .
+    units: "m"
+    items:
+      -
+        - -299.40482359375886
+        - -1203.2011144374808
+      -
+        - 781.5315331460936
+        - -280.61182334183536
+      -
+        - -545.1019063439943
+        - 451.5368070958437
+      -
+        - -831.956884194855
+        - 605.4409760420314
+      -
+        - 203.15777845921815
+        - -845.2531265187068
+      -
+        - 593.5725389935484
+        - 500.84214333616603
+      -
+        - 417.8159175480857
+        - 1278.9758814742331
+      -
+        - -221.0168159232914
+        - -398.45474662367405
+      -
+        - -1019.4615094716479
+        - -204.0756587497328
+      -
+        - -799.3642289187515
+        - -588.313515109261
+      -
+        - 1051.5907313596495
+        - 306.475210700582
+      -
+        - 230.68784597517785
+        - 226.8870922150339
+      -
+        - -491.6644985835331
+        - 1090.6307699215497
+      -
+        - 837.5366877188552
+        - -962.7946561368606
+      -
+        - 441.24302760559794
+        - -76.31124224200825
+      -
+        - 103.24740707320932
+        - 1067.00830076014
+  base_height:
+    description: |-
+      z-coordinates for the wind turbine base heights, determined by the terrain of the site
+      - z0
+      - z1
+      - z2
+       .
+       .
+       .
+    units: "m"
+    items:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+  turbine_type:
+    id:
+      description: |-
+        Turbine type IDs for each turbine in the farm. Each ID correspondes to an index of the reference item array.
+        - ID_0
+        - ID_1
+        - ID_2
+         .
+         .
+         .
+      items:
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+    ref:
+      description: "Reference file paths for each turbine type in the farm."
+      items:
+        - "VestasV80_2MW.yaml"
+  plant_energy:
+    description: "energy production data"
+    properties:
+      annual_energy_production:
+        description: "binned and total (default) annual energy production (AEP) for a wind plant given a layout and binned wind rose"
+        units: "W"
+        binned: []
+        default: .NaN
+      cost_of_energy:
+        description: "estimated cost of energy (COE) for the farm"
+        units: "$/W"
+        default: .NaN

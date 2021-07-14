@@ -3,10 +3,28 @@ import YAML
 
 function generate_all_initial_farm_design_files()
     for i = 1:100
-        generate_initial_farm_design_circle(i,9,5,80.0)
-        generate_initial_farm_design_circle(i,9,7,80.0)
-        generate_initial_farm_design_circle(i,9,10,80.0)
-        generate_initial_farm_design_hornsrev(i)
+
+        ### round farms ###
+        
+        # 9 turbines
+        # generate_initial_farm_design_circle(i,9,5,80.0)
+        # generate_initial_farm_design_circle(i,9,7,80.0)
+        # generate_initial_farm_design_circle(i,9,10,80.0)
+        # 16 turbines
+        generate_initial_farm_design_circle(i,16,5,80.0)
+        generate_initial_farm_design_circle(i,16,7,80.0)
+        generate_initial_farm_design_circle(i,16,10,80.0)
+        # 25 turbines
+        generate_initial_farm_design_circle(i,25,5,80.0)
+        generate_initial_farm_design_circle(i,25,7,80.0)
+        generate_initial_farm_design_circle(i,25,10,80.0)
+        # 38 turbines
+        generate_initial_farm_design_circle(i,38,5,80.0)
+        generate_initial_farm_design_circle(i,38,7,80.0)
+        generate_initial_farm_design_circle(i,38,10,80.0)
+        
+        ### Horns Rev farm ###
+        # generate_initial_farm_design_hornsrev(i)
     end
 end
 
