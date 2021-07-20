@@ -5,10 +5,10 @@ test=1          # 0 for no test, 1 for light test, 2 for heavy test
 
 if [ $test = 1 ]; then
     # light test
-    nturbines_vec=(38)           # number of turbines in farm
-    diameter_spacing_vec=(7)    # approximate spacing between turbines (in rotor diameters)
-    ndirs_vec=(180)              # number of directions in wind rose
-    nspeeds_vec=(20)             # number of speeds in wind rose
+    nturbines_vec=(9 16)           # number of turbines in farm
+    diameter_spacing_vec=(10)    # approximate spacing between turbines (in rotor diameters)
+    ndirs_vec=(10)              # number of directions in wind rose
+    nspeeds_vec=(1)             # number of speeds in wind rose
     wake_models=(Gaussian)      # wake model
 elif [ $test = 2 ]; then
     # heavy test
@@ -30,9 +30,9 @@ fi
 ntasksmax=250
 
 # run optimizations for each combination of variables
-for nturbines in ${nturbines_vec}
+for nturbines in ${nturbines_vec[@]}
 do
-    for diameter_spacing in ${diameter_spacing_vec}
+    for diameter_spacing in ${diameter_spacing_vec[@]}
     do
         for ndirs in ${ndirs_vec[@]}
         do
@@ -62,6 +62,8 @@ do
                     else
                         # run locally
                         layout_number=001
+
+                        echo "Now optimizing for $ndirs directions, $nspeeds speeds, $nturbines turbines, $diameter_spacing D, $wake_model."
 
                         julia run_opt_circle.jl \
                         $layout_number \
