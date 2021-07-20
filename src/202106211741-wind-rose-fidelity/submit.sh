@@ -44,7 +44,7 @@ do
                         # run on high-performance computer using slurm
 
                         # decide how many cores to use
-                        ntasksdefault=$(expr $ndirs \* $nspeeds / 500)
+                        ntasksdefault=$(expr $ndirs \* $nspeeds / 40)
                         _ntasks=$(($ntasksdefault<$ntasksmax ? $ntasksdefault : $ntasksmax))
                         _ntasks=$(($_ntasks>1 ? $_ntasks : 1))
 
