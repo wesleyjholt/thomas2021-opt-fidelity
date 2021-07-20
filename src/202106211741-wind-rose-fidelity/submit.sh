@@ -5,10 +5,10 @@ test=1          # 0 for no test, 1 for light test, 2 for heavy test
 
 if [ $test = 1 ]; then
     # light test
-    nturbines_vec=(9)           # number of turbines in farm
+    nturbines_vec=(38)           # number of turbines in farm
     diameter_spacing_vec=(7)    # approximate spacing between turbines (in rotor diameters)
-    ndirs_vec=(10)              # number of directions in wind rose
-    nspeeds_vec=(1)             # number of speeds in wind rose
+    ndirs_vec=(180)              # number of directions in wind rose
+    nspeeds_vec=(20)             # number of speeds in wind rose
     wake_models=(Gaussian)      # wake model
 elif [ $test = 2 ]; then
     # heavy test
@@ -49,7 +49,7 @@ do
                         _ntasks=$(($_ntasks>1 ? $_ntasks : 1))
 
                         # submit job    
-                        echo "Now submitting jobs for $ndirs directions and $nspeeds speeds, using $_ntasks CPUs."
+                        echo "Now submitting jobs for $ndirs directions, $nspeeds speeds, $nturbines turbines, $diameter_spacing D, $wake_model, using $_ntasks CPUs."
                         sbatch --ntasks=$_ntasks run_opt_circle.sh \
                         $ndirs \
                         $nspeeds \
