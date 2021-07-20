@@ -14,9 +14,11 @@ verbose = true
 
 ### parse input arguments ###
 
-ntasks = parse(Int, ENV["SLURM_NTASKS"])
-if ntasks>1
-    addprocs(SlurmManager(ntasks - 1))
+if haskey(ENV,"SLURM_NTASKS")
+    ntasks = parse(Int, ENV["SLURM_NTASKS"])
+    if ntasks>1
+        addprocs(SlurmManager(ntasks - 1))
+    end
 end
 
 if length(ARGS)<1
@@ -34,25 +36,26 @@ diameter_spacing = parse(Int,ARGS[6])
 ### set input file path/names ###
 
 # farm name
-@everywhere farm_name = "circle-$($nturbines)turb-$($diameter_spacing)diam"
+farm_name = "circle-$(nturbines)turb-$(diameter_spacing)diam"
 # farm definition
-@everywhere path_to_farm_definition_directory = "../inputfiles/farms/random-layouts/$($farm_name)/"
-@everywhere farm_definition_filename = "initial-design-$($layout_number).yaml"
+path_to_farm_definition_directory = "../inputfiles/farms/random-layouts/$(farm_name)/"
+farm_definition_filename = "initial-design-$(layout_number).yaml"
 # wind resource
-@everywhere path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
+path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
 if parse(Int64,nspeeds)==1
-    @everywhere wind_resource_filename = "hornsrev-windresource-$($ndirs)dirs-averagespeeds.yaml"
+    wind_resource_filename = "hornsrev-windresource-$(ndirs)dirs-averagespeeds.yaml"
 else
-    @everywhere wind_resource_filename = "hornsrev-windresource-$($ndirs)dirs-$($nspeeds)speeds.yaml"
+    wind_resource_filename = "hornsrev-windresource-$(ndirs)dirs-$(nspeeds)speeds.yaml"
 end
 # flow models
-@everywhere path_to_flow_models_directory = "../inputfiles/model-sets/flow-models/"
-@everywhere flow_models_filename = "$($wake_model)-NoLocalTI.yaml"
+path_to_flow_models_directory = "../inputfiles/model-sets/flow-models/"
+flow_models_filename_no_TI = "$(wake_model)-NoLocalTI.yaml"
+flow_models_filename_with_TI = "$(wake_model)-MaxTI.yaml"
 
 ### import problem setup file ###
 
-@everywhere include("problem_setup_circle.jl")
-
+include("problem_setup_circle.jl")
+@everywhere import FLOWFarm; const ff=FLOWFarm
 
 ##########################################################
 # RUN OPTIMIZATION
@@ -61,7 +64,10 @@ end
 ### set up optimization ###
 
 # get SNOW arguments
-@everywhere func!, x0, ng, lx, ux, lg, ug = ff.get_SNOW_optimization_inputs(wind_farm_opt_problem)
+func_no_TI!, x0, ng, lx, ux, lg, ug = ff.get_SNOW_optimization_inputs(wind_farm_opt_problem_no_TI)
+func_with_TI!, x0, ng, lx, ux, lg, ug = ff.get_SNOW_optimization_inputs(wind_farm_opt_problem_with_TI)
+@everywhere func_no_TI! = $func_no_TI!
+@everywhere func_with_TI = $func_with_TI!
 
 # test objective and constraint functions
 nx = length(x0)
@@ -69,7 +75,7 @@ g = zeros(ng)
 df = zeros(nx)
 dg = zeros(ng,nx)
 t1 = time()
-f = func!(g,df,dg,x0)
+f = func_no_TI!(g,df,dg,x0)
 t2 = time()
 if verbose
     println("Time for one evaluation of objective, constraints, and gradients: ", round(t2-t1,digits=3))
@@ -78,7 +84,7 @@ end
 # separate initial design variable values into x and y
 turbine_x = copy(x0[1:nturbines])
 turbine_y = copy(x0[nturbines+1:end])
-rotor_diameter = wind_farm_opt_problem.wind_farm_problem.farm_description.turbine_definitions[1].rotor_diameter
+rotor_diameter = wind_farm_opt_problem_no_TI.wind_farm_problem.farm_description.turbine_definitions[1].rotor_diameter
 
 if plotresults
     plot(0,0)
@@ -119,15 +125,28 @@ for i = 1:length(wec_values)
     solver = SNOPT(options=snopt_options)
     options = Options(;solver, derivatives=UserDeriv())
 
-    # set wec value
-    wind_farm_opt_problem.flow_models.wake_deficit_model.wec_factor[1] = wec_values[i]
+    # set objective function (with or without TI)
+    if with_TI[i]
+        func! = func_with_TI!
+        wind_farm_opt_problem_with_TI.flow_models.wake_deficit_model.wec_factor[1] = wec_values[i]
+        if verbose
+            println("\nnow running with WEC = ", wind_farm_opt_problem_with_TI.flow_models.wake_deficit_model.wec_factor[1])
+        end
+    else
+        func! = func_no_TI!
+        wind_farm_opt_problem_no_TI.flow_models.wake_deficit_model.wec_factor[1] = wec_values[i]
+        if verbose
+            println("\nnow running with WEC = ", wind_farm_opt_problem_no_TI.flow_models.wake_deficit_model.wec_factor[1])
+        end
+    end
+
+    # set WEC value
     
     # initialize and save starting point
     x0_i = [turbine_x; turbine_y]
     push!(startx,turbine_x)
     push!(starty,turbine_y)
     if verbose
-        println("\nnow running with WEC = ", wind_farm_opt_problem.flow_models.wake_deficit_model.wec_factor[1])
         println("initial turbine coordinates: ", x0_i[1:5])
     end
 
@@ -203,7 +222,7 @@ turbine_xy = [[turbine_x[i],turbine_y[i]] for i=1:nturbines]
 ### define additional FLOWFarm structs ###
 
 # wind farm problem (final)
-wind_farm_problem_final = deepcopy(wind_farm_problem)
+wind_farm_problem_final = deepcopy(wind_farm_opt_problem_with_TI.wind_farm_problem)
 wind_farm_problem_final.farm_description.turbine_x[:] = turbine_x
 wind_farm_problem_final.farm_description.turbine_y[:] = turbine_y
 
@@ -260,8 +279,8 @@ if plotresults
     end
     
     # add wind farm boundary to plot
-    boundary_radius = wind_farm_opt_problem.wind_farm_problem.site_description.boundaries[1].radius
-    boundary_center = wind_farm_opt_problem.wind_farm_problem.site_description.boundaries[1].center
+    boundary_radius = wind_farm_opt_problem_with_TI.wind_farm_problem.site_description.boundaries[1].radius
+    boundary_center = wind_farm_opt_problem_with_TI.wind_farm_problem.site_description.boundaries[1].center
     plt.gcf().gca().add_artist(plt.Circle((boundary_center[1],boundary_center[2]), boundary_radius, fill=false,color="C2"))
 
     # set up and show plot

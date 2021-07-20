@@ -49,7 +49,8 @@ end
 # flow models
 if !(@isdefined flow_models_filename)
     path_to_flow_models_directory = "../inputfiles/model-sets/flow-models/"
-    flow_models_filename = "Gaussian-NoLocalTI.yaml"
+    flow_models_filename_no_TI = "Gaussian-NoLocalTI.yaml"
+    flow_models_filename_with_TI = "Gaussian-MaxTI.yaml"
 end
 
 #### SET FLOWFARM PARAMETERS ####
@@ -69,7 +70,8 @@ site_definition = ff.set_site_definition_YAML(path_to_site_definition_directory*
 wind_farm_problem = ff.WindFarmProblem(farm_definition, site_definition)
 
 # flow analysis models
-flow_models = ff.set_flow_models_YAML(path_to_flow_models_directory*flow_models_filename)
+flow_models_no_TI = ff.set_flow_models_YAML(path_to_flow_models_directory*flow_models_filename_no_TI)
+flow_models_with_TI = ff.set_flow_models_YAML(path_to_flow_models_directory*flow_models_filename_with_TI)
 
 # define optimization problem
 objective = ff.MaximizeAEP(1e-6)
@@ -78,4 +80,5 @@ constraints = [ff.TurbineSpacingConstraint(),
                ff.BoundaryConstraint()]
 
 # combine everything into a single wind farm optimization problem data structure
-wind_farm_opt_problem = ff.WindFarmOptimizationProblem(objective, design_variables, constraints, wind_farm_problem, flow_models)
+wind_farm_opt_problem_no_TI = ff.WindFarmOptimizationProblem(objective, design_variables, constraints, wind_farm_problem, flow_models_no_TI)
+wind_farm_opt_problem_with_TI = ff.WindFarmOptimizationProblem(objective, design_variables, constraints, wind_farm_problem, flow_models_with_TI)
