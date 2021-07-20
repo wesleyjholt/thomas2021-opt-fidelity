@@ -66,8 +66,8 @@ include("problem_setup_circle.jl")
 # get SNOW arguments
 func_no_TI!, x0, ng, lx, ux, lg, ug = ff.get_SNOW_optimization_inputs(wind_farm_opt_problem_no_TI)
 func_with_TI!, x0, ng, lx, ux, lg, ug = ff.get_SNOW_optimization_inputs(wind_farm_opt_problem_with_TI)
-func_no_TI! = $func_no_TI!
-func_with_TI = $func_with_TI!
+func_no_TI! = func_no_TI!
+func_with_TI = func_with_TI!
 
 # test objective and constraint functions
 nx = length(x0)
