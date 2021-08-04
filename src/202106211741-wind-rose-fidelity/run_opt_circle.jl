@@ -40,6 +40,7 @@ farm_name = "circle-$(nturbines)turb-$(diameter_spacing)diam"
 # farm definition
 path_to_farm_definition_directory = "../inputfiles/farms/random-layouts/$(farm_name)/"
 farm_definition_filename = "initial-design-$(layout_number).yaml"
+path_to_turbine_definition_directory, turbine_definition_filename = split_directory_and_filename(path_to_turbine_definition)
 # wind resource
 path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
 if parse(Int64,nspeeds)==1
@@ -53,7 +54,6 @@ flow_models_filename_no_TI = "$(wake_model)-NoLocalTI.yaml"
 flow_models_filename_with_TI = "$(wake_model)-MaxTI.yaml"
 
 ### import problem setup file ###
-
 include("problem_setup_circle.jl")
 @everywhere import FLOWFarm; const ff=FLOWFarm
 
