@@ -14,43 +14,50 @@ end
 
 #### SET DEFAULTS (IF FILE PATHS ARE NOT ALREADY DEFINED) ####
 
-# farm definition
-if !(@isdefined farm_definition_filename)
-    path_to_farm_definition_directory = "../inputfiles/farms/random-layouts/circle-9turb-10diam/"
-    farm_definition_filename = "initial-design-001.yaml"
-end
+allow_defaults = false
 
-# turbine definition
-farm_definition_Dict = YAML.load(open(path_to_farm_definition_directory*farm_definition_filename))
-try path_to_turbine_definition = farm_definition_Dict["definition"]["wind_resource"]["items"]["ref"]; catch; end
-if (@isdefined path_to_turbine_definition) && path_to_wind_resource !== nothing
-    path_to_turbine_definition_directory, turbine_definition_filename = split_directory_and_filename(path_to_turbine_definition)
-elseif !(@isdefined turbine_definition_filename) 
-    path_to_turbine_definition_directory = "../inputfiles/turbines/vestas-v80/"
-    turbine_definition_filename = "VestasV80_2MW.yaml"
-end
+if allow_defaults
+    
+    # farm definition
+    if !(@isdefined farm_definition_filename)
+        path_to_farm_definition_directory = "../inputfiles/farms/random-layouts/circle-9turb-10diam/"
+        farm_definition_filename = "initial-design-001.yaml"
+    end
 
-# site definition
-if !(@isdefined site_definition_filename)
-    path_to_site_definition_directory = "../inputfiles/sites/"
-    site_definition_filename = "circle_site_withoutwindresource.yaml"
-end
+    # turbine definition
+    farm_definition_Dict = YAML.load(open(path_to_farm_definition_directory*farm_definition_filename))
+    try path_to_turbine_definition = farm_definition_Dict["definition"]["wind_resource"]["items"]["ref"]; catch; end
+    if (@isdefined path_to_turbine_definition) && path_to_wind_resource !== nothing
+        path_to_turbine_definition_directory, turbine_definition_filename = split_directory_and_filename(path_to_turbine_definition)
+    elseif !(@isdefined turbine_definition_filename) 
+        path_to_turbine_definition_directory = "../inputfiles/turbines/vestas-v80/"
+        turbine_definition_filename = "VestasV80_2MW.yaml"
+    end
 
-# wind resource
-site_definition_Dict = YAML.load(open(path_to_site_definition_directory*site_definition_filename))
-try path_to_wind_resource = site_definition_Dict["definition"]["wind_resource"]["items"]["ref"]; catch; end
-if (@isdefined path_to_wind_resource) && path_to_wind_resource !== nothing
-    path_to_wind_resource_directory, wind_resource_filename = split_directory_and_filename(path_to_wind_resource)
-elseif !(@isdefined wind_resource_filename)
-    path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
-    wind_resource_filename = "hornsrev-windresource-020dirs-averagespeeds.yaml"
-end
+    # site definition
+    if !(@isdefined site_definition_filename)
+        path_to_site_definition_directory = "../inputfiles/sites/"
+        site_definition_filename = "circle_site_withoutwindresource.yaml"
+    end
 
-# flow models
-if !(@isdefined flow_models_filename)
-    path_to_flow_models_directory = "../inputfiles/model-sets/flow-models/"
-    flow_models_filename_no_TI = "Gaussian-NoLocalTI.yaml"
-    flow_models_filename_with_TI = "Gaussian-MaxTI.yaml"
+    # wind resource
+    site_definition_Dict = YAML.load(open(path_to_site_definition_directory*site_definition_filename))
+    try path_to_wind_resource = site_definition_Dict["definition"]["wind_resource"]["items"]["ref"]; catch; end
+    if (@isdefined path_to_wind_resource) && path_to_wind_resource !== nothing
+        path_to_wind_resource_directory, wind_resource_filename = split_directory_and_filename(path_to_wind_resource)
+    elseif !(@isdefined wind_resource_filename)
+        path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
+        wind_resource_filename = "hornsrev-windresource-020dirs-averagespeeds.yaml"
+    end
+
+    # flow models
+    if !(@isdefined flow_models_filename)
+        println("Default flow model set.")
+        path_to_flow_models_directory = "../inputfiles/model-sets/flow-models/"
+        flow_models_filename_no_TI = "Gaussian-NoLocalTI.yaml"
+        flow_models_filename_with_TI = "Gaussian-MaxTI.yaml"
+    end
+
 end
 
 #### SET FLOWFARM PARAMETERS ####
