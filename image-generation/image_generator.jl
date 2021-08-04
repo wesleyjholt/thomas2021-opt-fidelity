@@ -977,7 +977,7 @@ function generate_images_for_publication()
     rcParams["lines.markersize"] = 8
     rcParams["axes.prop_cycle"] = colors
 
-    savefigs = true 
+    savefigs = true
     showfigs = true
 
     # wind_shear_tuning(colors, fontsize, savefigs=savefigs, showfigs=showfigs, case="low-ti")
@@ -996,3 +996,5 @@ function generate_images_for_publication()
 
     vertical_slice(colors, savefigs=savefigs, showfigs=showfigs)
 end
+
+generate_images_for_publication()
