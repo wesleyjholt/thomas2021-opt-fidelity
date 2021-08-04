@@ -1,0 +1,35 @@
+title: Horns Rev wind farm site
+description: 
+location:
+  reference_system: 
+  utm_zone: 
+  utm: 
+
+definitions:
+  wind_resource:
+    description:
+    items:
+      description:
+      ref: 
+
+  boundaries:
+    description: boundary for the Horns Rev wind farm
+    units: m
+    items:
+      I:
+        type: circle
+        center:
+          - 0.0
+          - 0.0
+        radius: 631.89
+
+  exclusions:
+    description:
+    units:
+    items:
+      
+  bathymetry:
+
+  elevation:
+
+  roads:

@@ -43,6 +43,9 @@ farm_definition_filename = "initial-design-$(layout_number).yaml"
 # turbine definition
 path_to_turbine_definition_directory = "../inputfiles/turbines/vestas-v80/"
 turbine_definition_filename = "VestasV80_2MW.yaml"
+# site definition
+path_to_site_definition_directory = "../inputfiles/sites/"
+site_definition_filename = "site-$farm_name-withoutwindresource.yaml"
 # wind resource
 path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
 if parse(Int64,nspeeds)==1
