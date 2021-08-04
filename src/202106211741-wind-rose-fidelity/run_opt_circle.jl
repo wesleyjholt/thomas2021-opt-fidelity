@@ -40,7 +40,9 @@ farm_name = "circle-$(nturbines)turb-$(diameter_spacing)diam"
 # farm definition
 path_to_farm_definition_directory = "../inputfiles/farms/random-layouts/$(farm_name)/"
 farm_definition_filename = "initial-design-$(layout_number).yaml"
-path_to_turbine_definition_directory, turbine_definition_filename = split_directory_and_filename(path_to_turbine_definition)
+# turbine definition
+ppath_to_turbine_definition_directory = "../inputfiles/turbines/vestas-v80/"
+turbine_definition_filename = "VestasV80_2MW.yaml"
 # wind resource
 path_to_wind_resource_directory = "../inputfiles/wind/wind-rose-fidelity/horns-rev/"
 if parse(Int64,nspeeds)==1
